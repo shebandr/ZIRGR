@@ -6,7 +6,17 @@
         xmlns:local="clr-namespace:ZIRGR"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Margin="5" Click="ReadGraphButton">Выбрать граф</Button>
+            <Button Margin="5" Click="ReadColorsButton">Выбрать цвета</Button>
+            <Button Margin="5" Click="SetDataButton">Применить</Button>
+            <Label x:Name="ReadFileErrorLabel"></Label>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBox Width="30" Margin="5" x:Name="inputTextBox"></TextBox>
+            <Button Margin="5" Click="CalcClientButton">Проверить</Button>
+            <Label Margin="5" x:Name="OutputLabel"></Label>
+        </StackPanel>
+    </StackPanel>
 </Window>
