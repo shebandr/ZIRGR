@@ -1,4 +1,7 @@
-﻿using Microsoft.Win32;
+﻿using GraphSharp.Algorithms.Layout.Simple.FDP;
+using GraphSharp.Controls;
+using Microsoft.Win32;
+using QuickGraph;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,15 +68,30 @@ namespace ZIRGR
 
 		private void SetDataButton(object sender, RoutedEventArgs e)
 		{
-			if(ColorFilePath != "" && GraphFilePath != "")
+			if (ColorFilePath != "" && GraphFilePath != "")
 			{
 				ReadFileErrorLabel.Content = Server.SetGraph(GraphFilePath, ColorFilePath);
 			}
 			Server.CalculateData();
 			Client = new client(Server.Vertices, Server.N, Server.d, Server.Z);
 
-		}
+			// Создание графа
+			var graph = new BidirectionalGraph<object, IEdge<object>>();
+			foreach (var vertex in Server.Colors)
+			{
+				graph.AddVertex(vertex[0]);
+			}
+			foreach (var edge in Server.Vertices)
+			{
+				graph.AddEdge(new Edge<object>(edge[0], edge[1]));
+				graph.AddEdge(new Edge<object>(edge[1], edge[0]));
 
+			}
+
+			// Привязка графа к элементу управления GraphLayout
+			graphLayout.Graph = graph;
+			graphLayout.LayoutAlgorithmType = "KK";
+		}
 		private void CalcClientButton(object sender, RoutedEventArgs e)
 		{
 			if(Client == null)

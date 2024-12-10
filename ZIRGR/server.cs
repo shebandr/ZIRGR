@@ -12,7 +12,7 @@ namespace ZIRGR
 	{
 
 		public List<List<string>> Vertices = new List<List<string>>();
-		private List<List<string>> Colors = new List<List<string>>();
+		public List<List<string>> Colors = new List<List<string>>();
 		private List<List<string>> ColorsShuffle = new List<List<string>> { new List<string> { "0", "0" }, new List<string> { "1", "1" }, new List<string> { "2", "2" } };
 		private List<BigInteger> V = new List<BigInteger>();
 		private List<BigInteger> P = new List<BigInteger>();
