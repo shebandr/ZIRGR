@@ -75,17 +75,58 @@ namespace ZIRGR
 			Server.CalculateData();
 			Client = new client(Server.Vertices, Server.N, Server.d, Server.Z);
 
-			// Создание графа
-			var graph = new BidirectionalGraph<object, IEdge<object>>();
-			foreach (var vertex in Server.Colors)
-			{
-				graph.AddVertex(vertex[0]);
-			}
+
+			// Создаём локальный список для хранения результата
+			List<List<string>> localVertices = new List<List<string>>();
+
+			// Преобразуем данные
 			foreach (var edge in Server.Vertices)
 			{
-				graph.AddEdge(new Edge<object>(edge[0], edge[1]));
-				graph.AddEdge(new Edge<object>(edge[1], edge[0]));
+				// Получаем название и цвет первой вершины
+				string firstVertexName = edge[0];
+				string firstVertexColor = Server.Colors.FirstOrDefault(v => v[0] == firstVertexName)?[1] ?? "Unknown";
 
+				// Получаем название и цвет второй вершины
+				string secondVertexName = edge[1];
+				string secondVertexColor = Server.Colors.FirstOrDefault(v => v[0] == secondVertexName)?[1] ?? "Unknown";
+
+
+				// Добавляем результат в локальный список
+				localVertices.Add(new List<string> { $"{firstVertexName}({firstVertexColor})" , $"{secondVertexName}({secondVertexColor})"});
+			}
+			string labelOutput = "";
+			int q = 0;
+			foreach(var i in localVertices)
+			{
+				labelOutput += q + ") " + i[0] + " - " + i[1] + "\n";
+				q++;
+			}
+			GraphLabel.Content = labelOutput;
+			// Вывод результата (для проверки)
+			foreach (var edge in localVertices)
+			{
+				Console.WriteLine(edge[0]);
+			}
+
+			// Создание графа
+			var graph = new BidirectionalGraph<object, IEdge<object>>();
+
+			// Добавление вершин в граф
+			foreach (var vertex in Server.Colors)
+			{
+				string vertexName = vertex[0];
+				string vertexColor = vertex[1];
+				string formattedVertex = $"{vertexName}({vertexColor})";
+				graph.AddVertex(formattedVertex);
+			}
+
+			// Добавление рёбер в граф
+			foreach (var edge in Server.Vertices)
+			{
+				string sourceVertex = $"{edge[0]}({Server.Colors.FirstOrDefault(v => v[0] == edge[0])?[1] ?? "Unknown"})";
+				string targetVertex = $"{edge[1]}({Server.Colors.FirstOrDefault(v => v[0] == edge[1])?[1] ?? "Unknown"})";
+				graph.AddEdge(new Edge<object>(sourceVertex, targetVertex));
+				graph.AddEdge(new Edge<object>(targetVertex, sourceVertex)); // Для неориентированного графа
 			}
 
 			// Привязка графа к элементу управления GraphLayout

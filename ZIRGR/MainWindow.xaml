@@ -6,7 +6,7 @@
         xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
         xmlns:local="clr-namespace:ZIRGR"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="800">
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <Button Margin="5" Click="ReadGraphButton">Выбрать граф</Button>
@@ -19,6 +19,12 @@
             <Button Margin="5" Click="CalcClientButton">Проверить</Button>
             <Label Margin="5" x:Name="OutputLabel"></Label>
         </StackPanel>
-        <graphsharp:GraphLayout x:Name="graphLayout" Height="400" Width="700" />
+        <StackPanel Orientation="Horizontal">
+            <Label Width="200" x:Name="GraphLabel">
+                
+            </Label>
+            <graphsharp:GraphLayout x:Name="graphLayout" Height="400" Width="400"  HorizontalAlignment="Right"/>
+
+        </StackPanel>
     </StackPanel>
 </Window>

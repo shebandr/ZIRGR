@@ -10,7 +10,7 @@ namespace ZIRGR
 {
 	internal class server
 	{
-
+		private int length = 64;
 		public List<List<string>> Vertices = new List<List<string>>();
 		public List<List<string>> Colors = new List<List<string>>();
 		private List<List<string>> ColorsShuffle = new List<List<string>> { new List<string> { "0", "0" }, new List<string> { "1", "1" }, new List<string> { "2", "2" } };
@@ -89,7 +89,7 @@ namespace ZIRGR
 
 			for (int i = 0; i < Colors.Count; i++)
 			{
-				BigInteger tempV = CryptographicLib.GenerateRandomBigInteger(CryptographicLib.PowBigInteger(2, 63), CryptographicLib.PowBigInteger(2, 64) - 1);
+				BigInteger tempV = CryptographicLib.GenerateRandomBigInteger(CryptographicLib.PowBigInteger(2, length-1), CryptographicLib.PowBigInteger(2, length) - 1);
 				tempV = tempV & ~3;
 				
 				switch (Colors[i][1])
@@ -107,15 +107,15 @@ namespace ZIRGR
 				V.Add(tempV);
 /*				Console.WriteLine(Convert.ToString((long)tempV, 2).PadLeft(128, '0'));*/
 
-				BigInteger tempP = CryptographicLib.GenerateRandomBigInteger(CryptographicLib.PowBigInteger(2, 63), CryptographicLib.PowBigInteger(2, 64) - 1);
+				BigInteger tempP = CryptographicLib.GenerateRandomBigInteger(CryptographicLib.PowBigInteger(2, length-1), CryptographicLib.PowBigInteger(2, length) - 1);
 				while (CryptographicLib.CheckPrime(tempP) != true || tempP == 0 || tempP == 1)
 				{
-					tempP = CryptographicLib.GenerateRandomBigInteger(CryptographicLib.PowBigInteger(2, 63), CryptographicLib.PowBigInteger(2, 64) - 1);
+					tempP = CryptographicLib.GenerateRandomBigInteger(CryptographicLib.PowBigInteger(2, length-1), CryptographicLib.PowBigInteger(2, length) - 1);
 				}
-				BigInteger tempQ = CryptographicLib.GenerateRandomBigInteger(CryptographicLib.PowBigInteger(2, 63), CryptographicLib.PowBigInteger(2, 64) - 1);
+				BigInteger tempQ = CryptographicLib.GenerateRandomBigInteger(CryptographicLib.PowBigInteger(2, length-1), CryptographicLib.PowBigInteger(2, length) - 1);
 				while (CryptographicLib.CheckPrime(tempQ) != true || tempQ == 0 || tempQ == 1)
 				{
-					tempQ = CryptographicLib.GenerateRandomBigInteger(CryptographicLib.PowBigInteger(2, 63), CryptographicLib.PowBigInteger(2, 64) - 1);
+					tempQ = CryptographicLib.GenerateRandomBigInteger(CryptographicLib.PowBigInteger(2, length - 1), CryptographicLib.PowBigInteger(2, length) - 1);
 				}
 				BigInteger tempN = tempP * tempQ;
 				BigInteger Phi = (tempP-1)*(tempQ-1);

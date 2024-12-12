@@ -59,7 +59,7 @@ namespace ZIRGR
 /*			Console.WriteLine(Convert.ToString((long)AVertex, 2).PadLeft(64, '0'));
 			Console.WriteLine(Convert.ToString((long)BVertex, 2).PadLeft(64, '0'));
 			// Вывод последних двух битов*/
-			Console.WriteLine($"Индекс: {index} Вершины: {Vertices[index][0]} {Vertices[index][1]} Последние два бита числа 1: {lastTwoBitsNumber1}, числа 2: {lastTwoBitsNumber2}");
+			string tempRes = $"Индекс: {index} Вершины: {Vertices[index][0]} {Vertices[index][1]} Последние два бита числа 1: {lastTwoBitsNumber1}, числа 2: {lastTwoBitsNumber2}";
 			bool bitsMatch = ((AVertex ^ BVertex) & 3) == 0;
 			if(bitsMatch)
 			{
@@ -68,7 +68,7 @@ namespace ZIRGR
             else
             {
 
-				return "Цвета разные";
+				return tempRes;
 				
             }
 		}

@@ -24,6 +24,7 @@ namespace ZIRGR
 			BigInteger range = max - min;
 			byte[] buffer = new byte[size];
 			rnd.NextBytes(buffer);
+			buffer[buffer.Length - 1] &= 0x7F;
 			BigInteger randomValue = new BigInteger(buffer);
 
 			return (randomValue % range) + min;
@@ -108,11 +109,11 @@ namespace ZIRGR
 
 			Random rnd = new Random();
 
-			BigInteger result = GenerateRandomBigInteger(2, p);
+			BigInteger result = GenerateRandomBigInteger(2, p, 32);
 
 			while (gcd(p, result) != 1)
 			{
-				result = GenerateRandomBigInteger(2, p);
+				result = GenerateRandomBigInteger(2, p, 32);
 			}
 
 			return result;
